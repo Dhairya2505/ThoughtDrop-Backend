@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import bcrypt from 'bcrypt'
 import { prisma } from '../index.js'
+import jwt from 'jsonwebtoken'
 
 export const signinRoute = async (req: Request, res: Response) => {
     
     const password = req.headers.password;
     const username = req.headers.username;
-
+    const SECRET_KEY = process.env.JWT_SECRET_KEY;
     if(typeof(username) == 'string' && typeof(password) == 'string'){
         if(username != '' && password != ''){
 
@@ -23,9 +24,28 @@ export const signinRoute = async (req: Request, res: Response) => {
                     try {
                         const result = await bcrypt.compare(password, user[0].password)
                         if(result){
-                            res.status(200).json({
-                                msg: `Successful Login`
-                            })
+                            if (SECRET_KEY){
+                                try {
+                                    const token = await jwt.sign({
+                                        username: username
+                                    }, SECRET_KEY)
+                                    
+                                    res.status(200).json({
+                                        msg: `Successful Login`,
+                                        token: token
+                                    })
+                                    
+                                } catch (error) {
+                                    res.status(500).json({
+                                        msg: `Internal server error`
+                                    })
+                                }
+                            } else {
+                                res.status(500).json({
+                                    msg: `Internal server error`
+                                })
+                            }
+
                         } else {
                             res.status(401).json({
                                 msg: `Wrong password`

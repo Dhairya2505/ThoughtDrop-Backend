@@ -5,6 +5,8 @@ import { signupRoute } from './routes/signupRoute.js';
 
 import { checkForUsername } from './middlewares/checkForUsername.js';
 import { signinRoute } from './routes/signinRoute.js';
+// import { createPost } from './routes/createPost.js';
+import { getPosts } from './routes/getPosts.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +20,8 @@ export const prisma = new PrismaClient()
 app.use(express.json())
 app.post(`/signup`, checkForUsername, signupRoute);
 app.get(`/signin`, signinRoute)
+// app.post(`/create`, createPost)
+app.get(`/getposts`, getPosts)
 
 
 app.listen(PORT,() => {
