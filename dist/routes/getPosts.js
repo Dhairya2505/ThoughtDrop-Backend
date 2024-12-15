@@ -11,16 +11,16 @@ export const getPosts = async (req, res) => {
                     posts: true
                 }
             });
-            console.log(user[0].posts);
-            // if(user){
-            //     res.status(200).json({
-            //         posts: user.posts,
-            //     })
-            // } else {
-            //     res.status(401).json({
-            //         msg: `Unauthorized`
-            //     })
-            // }
+            if (user) {
+                res.status(200).json({
+                    posts: user[0].posts,
+                });
+            }
+            else {
+                res.status(401).json({
+                    msg: `Unauthorized`
+                });
+            }
         }
         else {
             res.status(401).json({
@@ -29,8 +29,8 @@ export const getPosts = async (req, res) => {
         }
     }
     catch (e) {
-        res.status(401).json({
-            msg: `Unauthorized`
+        res.status(500).json({
+            msg: `Internal server error`
         });
     }
 };

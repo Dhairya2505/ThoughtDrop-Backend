@@ -1,12 +1,12 @@
 import express from 'express';
 import { PrismaClient } from '@prisma/client';
-import { signupRoute } from './routes/signupRoute.js';
 import { checkForUsername } from './middlewares/checkForUsername.js';
+import { verifyToken } from './middlewares/verifyToken.js';
+import { signupRoute } from './routes/signupRoute.js';
 import { signinRoute } from './routes/signinRoute.js';
-// import { createPost } from './routes/createPost.js';
 import { getPosts } from './routes/getPosts.js';
 import { createPost } from './routes/createPost.js';
-import { verifyToken } from './middlewares/verifyToken.js';
+import { replyToPost } from './routes/reply.js';
 const app = express();
 const PORT = process.env.PORT || 3000;
 export const prisma = new PrismaClient();
@@ -18,6 +18,7 @@ app.post(`/signup`, checkForUsername, signupRoute);
 app.get(`/signin`, signinRoute);
 app.post(`/createpost`, verifyToken, createPost);
 app.get(`/getposts`, verifyToken, getPosts);
+app.post(`/reply`, verifyToken, replyToPost);
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
