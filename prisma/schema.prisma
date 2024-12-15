@@ -13,6 +13,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Reply {
+  id String @id
+  content String
+  createdAt DateTime @default(now()) @db.Timestamp(6)
+  authorId String
+  author User @relation(fields: [authorId], references: [id])
+  postid String
+  post Post @relation(fields: [postid], references: [id])
+}
 
 model Post {
   id        String @id
@@ -20,6 +29,7 @@ model Post {
   content   String
   authorId  String
   author    User     @relation(fields: [authorId], references: [id])
+  reply Reply[]
 }
 
 
@@ -29,4 +39,5 @@ model User {
   password String
   createdAt DateTime @default(now()) @db.Timestamp(6)
   posts Post[]
+  reply Reply[]
 }
