@@ -5,6 +5,7 @@ import { checkForUsername } from './middlewares/checkForUsername.js';
 import { signinRoute } from './routes/signinRoute.js';
 // import { createPost } from './routes/createPost.js';
 import { getPosts } from './routes/getPosts.js';
+import { createPost } from './routes/createPost.js';
 const app = express();
 const PORT = process.env.PORT || 3000;
 export const prisma = new PrismaClient();
@@ -14,7 +15,7 @@ export const prisma = new PrismaClient();
 app.use(express.json());
 app.post(`/signup`, checkForUsername, signupRoute);
 app.get(`/signin`, signinRoute);
-// app.post(`/create`, createPost)
+app.post(`/createpost`, createPost);
 app.get(`/getposts`, getPosts);
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

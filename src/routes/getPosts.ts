@@ -3,7 +3,8 @@ import jwt, { JwtPayload } from 'jsonwebtoken'
 import { prisma } from "../index.js";
 
 interface CustomJwtPayload extends JwtPayload {
-    username: string;
+    username: string
+    userId: string
   }
 
 export const getPosts = async (req: Request, res: Response) => {
@@ -12,9 +13,6 @@ export const getPosts = async (req: Request, res: Response) => {
 
     if(bearerToken != '' && typeof(bearerToken) == 'string'){
         const token = bearerToken.split(' ')[1]
-        if(SECRET_KEY){
-
-        }
         if(SECRET_KEY){
             
             try {

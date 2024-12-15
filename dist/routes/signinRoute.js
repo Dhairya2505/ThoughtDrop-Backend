@@ -20,7 +20,8 @@ export const signinRoute = async (req, res) => {
                             if (SECRET_KEY) {
                                 try {
                                     const token = await jwt.sign({
-                                        username: username
+                                        userId: user[0].id,
+                                        username: username,
                                     }, SECRET_KEY);
                                     res.status(200).json({
                                         msg: `Successful Login`,

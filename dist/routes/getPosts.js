@@ -6,8 +6,6 @@ export const getPosts = async (req, res) => {
     if (bearerToken != '' && typeof (bearerToken) == 'string') {
         const token = bearerToken.split(' ')[1];
         if (SECRET_KEY) {
-        }
-        if (SECRET_KEY) {
             try {
                 const payload = jwt.verify(token, SECRET_KEY);
                 const username = payload.username;
