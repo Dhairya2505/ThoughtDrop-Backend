@@ -1,15 +1,6 @@
 import { nanoid } from "nanoid";
 import { prisma } from "../index.js";
-const lengthOfContent = async (content) => {
-    let wordCount = 0;
-    for (let i = 0; i < content.length; i++) {
-        if (content[i] == " ") {
-            wordCount++;
-        }
-    }
-    wordCount++;
-    return wordCount;
-};
+import { lengthOfContent } from "../utilities/lengthofcontent.js";
 export const createPost = async (req, res) => {
     const id = nanoid(20);
     const content = req.body.content;
