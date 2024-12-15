@@ -1,17 +1,7 @@
 import { Request, Response } from "express";
 import { nanoid } from "nanoid";
 import { prisma } from "../index.js";
-
-const lengthOfContent = async (content: string) => {
-    let wordCount = 0;
-    for (let i = 0 ; i<content.length ; i++){
-        if(content[i] == " "){
-            wordCount++;
-        }
-    }
-    wordCount++;
-    return wordCount;
-}
+import { lengthOfContent } from "../utilities/lengthofcontent.js";
 
 export const createPost = async (req: Request, res: Response) => {
 
