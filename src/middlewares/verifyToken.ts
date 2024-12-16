@@ -8,7 +8,7 @@ interface CustomJwtPayload extends JwtPayload {
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     const SECRET_KEY = process.env.JWT_SECRET_KEY;
-    const bearerToken = req.headers.token;
+    const bearerToken = req.headers.token
     if(bearerToken != '' && typeof(bearerToken) == 'string'){
         const token = bearerToken.split(' ')[1]
         if (SECRET_KEY){
