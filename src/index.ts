@@ -26,12 +26,12 @@ app.use(cors({
     origin: "*"
 }))
 
-app.post(`/signup`, checkForUsername, signupRoute);
+app.get(`/signup`, checkForUsername, signupRoute);
 app.get(`/signin`, signinRoute);
 app.post(`/createpost`,verifyToken, createPost);
 app.get(`/getposts`,verifyToken, getPosts);
 app.post(`/reply`,verifyToken,replyToPost);
-app.get(`/getallposts`, getAllPosts);
+app.get(`/getallposts`,verifyToken, getAllPosts);
 
 app.listen(PORT,() => {
     console.log(`Server is running on http://localhost:${PORT}`)

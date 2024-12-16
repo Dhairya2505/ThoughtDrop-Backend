@@ -4,7 +4,6 @@ import { prisma } from "../index.js";
 export const checkForUsername = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 
     try {
-        
         const username = req.headers.username;
         if(typeof(username)=='string'){
             const existingUser = await prisma.user.findMany({

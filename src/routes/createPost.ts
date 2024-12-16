@@ -10,7 +10,6 @@ export const createPost = async (req: Request, res: Response) => {
     const content:string = req.body.content;
     const username = req.headers.username;
     const userId = req.headers.userId;
-
     const len = await lengthOfContent(content);
     if(len > 50){
         res.status(400).json({

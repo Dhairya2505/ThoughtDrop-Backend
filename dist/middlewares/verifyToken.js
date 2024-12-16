@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 export const verifyToken = (req, res, next) => {
     const SECRET_KEY = process.env.JWT_SECRET_KEY;
-    const bearerToken = req.headers.token;
+    const bearerToken = req.headers.token || req.body.token;
     if (bearerToken != '' && typeof (bearerToken) == 'string') {
         const token = bearerToken.split(' ')[1];
         if (SECRET_KEY) {
